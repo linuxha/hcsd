@@ -1,0 +1,21 @@
+
+*******************************************************************
+*  Welcome to SourceForge Shell Services (shell1.sourceforge.net) *
+*******************************************************************
+Project Websites are located in /home/groups and can be seen
+by visiting http://<project name>.sourceforge.net
+
+Project FTP Sites are located in /home/groups/ftp/pub/<project name>
+and can be seen by visiting ftp://<project name>.sourceforge.net/pub
+
+/home/users   : User Based Quota 2MB Soft 4MB Hard
+/home/groups  : Group Based Quota 100MB Soft 125MB Hard
+*******************************************************************
+Another note. We don't allow ftp to this box via your user account.
+If you want to get files here take a look at 'scp'
+*******************************************************************
+I've installed ircii and BitchX on shell1 now.  So everyone with
+their own binaries, please delete them and use one of the system
+installed ones.  Thanks.
+*******************************************************************
+
