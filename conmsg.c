@@ -37,45 +37,43 @@
 extern int waitfor_rd(int fd, int nsec, int usec);
 
 void
-conmsg(int device) 
-{
-  int count;
-  //char *ptr;
-  char *buf;
+conmsg(int device) {
+    int count;
+    char *buf;
 
-  if((buf = malloc(256)) == NULL) {
-    syslog(LOG_CRIT, "conmsg malloc error: %m");
-    return ;
-  }
-
-  count = 0;
-
-  //ptr = buf;
-  
-  while(count < 256) {
-    /*
-    ** I'll wait 30 seconds (x3) for a response.
-    */
-
-    if((count = waitfor_rd(device, 2, 0)) > 0 ) {
-      if((count = read(device, buf, 1)) == 1) {
-        if(*buf == '\0') {
-          *buf = (char ) '\0';
-/*
-** This needs to be fixed!
-*/
-//          fdprintf(user, "$80%s\r\n", ptr);
-          return ;
-        }
-        buf++;
-        count++;
-      } else {
-        // handle error
-      }
-    } else {
-      // Handle error or timeout
+    if((buf = malloc(256)) == NULL) {
+	syslog(LOG_CRIT, "conmsg malloc error: %m");
+	return ;
     }
-  }
-  *buf = (char ) '\0';
-//  fdprintf(user, "$80%s\r\n", ptr);
+
+    count = 0;
+
+    /*
+    ** @FIXME: I really don't quite understand the 30 second wait, how it does wait or why
+    */
+    while(count < 256) {
+	/*
+	** I'll wait 30 seconds (x3) for a response.
+	*/
+	if((count = waitfor_rd(device, 2, 0)) > 0 ) {
+	    if((count = read(device, buf, 1)) == 1) {
+		if(*buf == '\0') {
+		    *buf = (char ) '\0';
+		    /*
+		    ** @FIXME: This needs to be fixed! (What needs to be fixed?)
+		    */
+		    //fdprintf(user, "$80%s\r\n", ptr);
+		    return ;
+		}
+		buf++;
+		count++;
+	    } else {
+		// handle error, is it an error to read nothing?
+	    }
+	} else {
+	    // Handle error or timeout
+	}
+    }
+
+    *buf = (char ) '\0';
 }
