@@ -35,10 +35,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <string.h>
+
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <string.h>
 
 #include "hcs_defs.h"
 #include "clients.h"
