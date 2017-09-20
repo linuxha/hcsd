@@ -57,7 +57,18 @@ extern char *xdate;
 
 void
 clihelp() {
-  fprintf(stderr,"Help!\ndevice\nfile\nportlock\nspeed\ndebug\nverbose\ninterval\nversion\n");
+    fprintf(stderr,"hcsd - HCS II Serial port monitor daemon\nVersion: %s (%s)\n\n", hcsid, xdate);
+    fprintf(stderr,"\t--device   - serial port HCS II is attached to\n"
+	    "\t--file     - events file location\n"
+	    "\t--port     - listening TCP port\n"
+	    "\t--lock     - lock file name and path\n"
+	    "\t--speed    - serial port speed\n"
+	    "\t--debug\n"
+	    "\t--verbose\n"
+	    "\t--interval - update interval (0=Off,1=Every Second, or 2=every Minute)\n"
+	    "\t--version\n\n"
+	    "Defaults:\n\tTCP Port: %s\n\tDevice: %s\n\tEvents file: %s\n\tSerial speed: %s\n",
+	    SERVICE, DEVICE, HCSFILE, "9600");
 }
 
 void
