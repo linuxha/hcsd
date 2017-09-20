@@ -43,7 +43,15 @@
 #include <sys/stat.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
+
 #include <errno.h>
+/*
+Gets rid of:
+
+/usr/bin/ld: errno: TLS definition in /lib/x86_64-linux-gnu/libc.so.6 section .tbss mismatches non-TLS reference in hcsd_setup.o
+/lib/x86_64-linux-gnu/libc.so.6: error adding symbols: Bad value
+
+*/
 
 #ifdef UUCP
 #include <stdlib.h>
@@ -59,7 +67,7 @@ char *lock;
 
 extern void fini(int);
 
-//extern int errno;
+extern int errno;
 extern int on;
 
 /*
