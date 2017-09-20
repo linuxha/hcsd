@@ -51,8 +51,7 @@ extern int interval;
 */
 
 uint
-bcd2b(uint v)
-{
+bcd2b(uint v) {
   return(((v>>4)*10)+(v&0xf));
 }
 
@@ -61,14 +60,12 @@ bcd2b(uint v)
 */
 
 uint
-b2bcd(uint v)
-{
+b2bcd(uint v) {
   return(((v/10)<<4)|(v%10));
 }
 
 void
-sethcsclock(int device)
-{
+sethcsclock(int device) {
   int i;
   
   time_t t;
