@@ -37,8 +37,7 @@
 **
 */
 
-#include <errno.h>
-//extern int errno;
+extern int errno;
 
 #if !defined(word)
 typedef unsigned short word;
