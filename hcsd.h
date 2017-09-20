@@ -31,6 +31,12 @@
 **
 */
 
+#ifndef HCSD_H
+#define HCSD_H
+
+//static struct sockaddr_in s_in = { PF_INET };
+static struct sockaddr address;
+
 /*[ tcpd/tcp wrappers stuff ]************************************************/
 
 #ifdef TCPD
@@ -80,3 +86,4 @@ extern char port[];
 extern char *lock;
 
 extern int interval;
+#endif
