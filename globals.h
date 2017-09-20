@@ -48,6 +48,7 @@ static struct sockaddr_in sin = { PF_INET };
 struct linger linger = { 1, 0 };
 static fd_set xprobe;
 
+//char *ctime(), *memchr(), *malloc();
 char *ctime();
 void *memchr(), *malloc();
 char *xdate = __DATE__;
