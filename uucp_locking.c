@@ -12,23 +12,9 @@
 ** Date:	11/25/99
 ** Version:	1.6 (alpha)
 **
-**      $Id: uucp_locking.c,v 1.1.1.1 2008/09/24 19:04:13 ncherry Exp $
+**      $Id: uucp_locking.c,v 1.6 1999/11/25 17:32:14 njc alpha njc $
 **
 **      $Log: uucp_locking.c,v $
-**      Revision 1.1.1.1  2008/09/24 19:04:13  ncherry
-**      Imported using TkCVS
-**
-**      Revision 1.1.1.2  2000/03/18 14:22:05  ncherry
-**
-**      Added hcs_dl.c which is a standalone program to download an events.bin file
-**      to an HCS II connected to a local serial port.
-**
-**      Revision 1.1.1.1  2000/03/13 13:06:00  ncherry
-**      This is the inital base release. It is nothing more that some of my (njc)
-**      existing code from my HCS II project. It is the code without the pthread
-**      functions. It has problems with character drops on the receive serial port.
-**
-**
 **      Revision 1.6  1999/11/25 17:32:14  njc
 **      This file  contains the uucp locking  library I created back  in 95. I
 **      haven't started playing with it yet.  It may need quite a bit of work.
@@ -50,6 +36,7 @@
 #include <signal.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 
 #include "uufuncs.h"
@@ -65,32 +52,33 @@ int makelock(name)
 char *name;
 {
   int fd, pid;
-  char *temp, buf[MAXLINE+1];
+#if 0
+  char *temp;
+#endif
+  char buf[MAXLINE+1];
   
   char apid[16];
   
   int getpid();
-  char *mktemp();
-  int mkstemp(char *template);
-
+  
   errno = 0;
   
   /*
   ** first make a temp file
   */
-
   (void) sprintf(buf, LOCK, "TM.XXXXXX");
-#if defined(OLDMKTEMP)
+#if 0
   if ((fd = creat((temp=mktemp(buf)), 0444)) == FAIL) {
-#else
-    temp = "TM.xxxxxx";
-  if ((fd = mkstemp(buf)) == FAIL) {
-#endif
     fprintf(stderr,"create failed on temp lockfile \"%s\": %s",
 	    temp, strerror(errno));
     return(FAIL);
   }
-  
+#else
+  if((fd = mkstemp(buf)) == FAIL) {
+    fprintf(stderr,"create failed on temp lockfile \"%s\": %s", buf, strerror(errno));
+    return(FAIL);
+  }
+#endif
   /*
   ** put my pid in it
   */
@@ -104,7 +92,7 @@ char *name;
   ** link it to the lock file
   */
 
-  while (link(temp, name) == FAIL)
+  while (link(buf, name) == FAIL)
   {
     if (errno == EEXIST) 	/* lock file already there */
     {
@@ -118,10 +106,10 @@ char *name;
 	continue;
       }
     }
-    (void) unlink(temp);
+    (void) unlink(buf);
     return(FAIL);
   }
-  (void) unlink(temp);
+  (void) unlink(buf);
   return(SUCCESS);
 }
 
