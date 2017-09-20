@@ -15,10 +15,11 @@ SERVICE =
 DEVICE  =
 
 # Hey TCPD wants yp! What's up with that?
-DEFS	= -DTCPD -DUUCP $(DEVICE) $(SERVICE)
-#DEFS	= -DUUCP $(DEVICE) $(SERVICE)
-LIB	=	-lwrap -lnss_nis
-#LIB	=
+#DEFS	= -DTCPD -DUUCP $(DEVICE) $(SERVICE)
+DEFS	= -DUUCP $(DEVICE) $(SERVICE)
+#LIB	=	-lwrap -lnss_nis
+#LIB	=	-lnss_nis
+LIB	=
 NOM	=	hcsd
 
 ALLSRC	=	hcsd.h hcsd.c fini.c hcsd_setup.c  badclient.c options.c \
